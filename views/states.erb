@@ -4,16 +4,24 @@
 
 <%if params.has_key?("fullname")%>
 	<h2>Form Submitted</h2>
-<% end %> 
+<% end %>
 
 
 <form name = "form">
+	<!--
+		jarp: something to be careful about. When mixing ruby and html, make sure the html is valid
+					in this case, the values for some of your attributes are not in quotes. still works in most cases
+					but it's better to make sure your values are always in quotes.
+	-->
 	<p><label>Full Name:<input type = "text" name = "fullname" value = <%= params[:fullname] %>></label></p>
 	<p><label>Address:<textarea rows = "4" cols = "50" name = "address" ><%= params[:address] %></textarea></label></p>
 	<p><label>City:<input type = "text" name = "city" value = <%= params[:city] %>></label></p>
 
+
+	<!-- jarp: whoops. forgot the label on this one -->
 	<p>State:<select name ="state">
 
+	<!-- jarp: good to see you wrapped just the 'selected' in a conditional and not the whole block -->
 		<%@states.each do |state| %>
 			<option <% if params[:state] == state[:id] then %> selected <% end %>
  value = <%= state[:id]%> ><%= state[:name] %></option>
@@ -23,7 +31,7 @@
 	</select></p>
 	<p><label>Zip:<input type = "text" name = "zip" value = <%= params[:zip] %>></label></p>
 	<p><label>I agree to submit this form.<input type = "checkbox" name = "agree" value = "1" <% if params.has_key?("agree") %>
-	checked 
+	checked
 <% end %>></label></p>
 	<input type = "submit" value = "Submit">
 </form>
